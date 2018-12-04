@@ -1,0 +1,199 @@
+###############################################################################
+#
+# IAR ELF Linker V8.30.2.160/W32 for ARM                  02/Dec/2018  10:30:59
+# Copyright 2007-2018 IAR Systems AB.
+#
+#    Output file  =  
+#        E:\_Faculty of Engineering - Ain Shams University\_Semester
+#        7\CSE316\Projects\TIVA Calculator\Debug\Exe\calc.out
+#    Map file     =  
+#        E:\_Faculty of Engineering - Ain Shams University\_Semester
+#        7\CSE316\Projects\TIVA Calculator\Debug\List\calc.map
+#    Command line =  
+#        -f C:\Users\GHAMRY\AppData\Local\Temp\EWF15F.tmp ("E:\_Faculty of
+#        Engineering - Ain Shams University\_Semester 7\CSE316\Projects\TIVA
+#        Calculator\Debug\Obj\keypad_driver.o" "E:\_Faculty of Engineering -
+#        Ain Shams University\_Semester 7\CSE316\Projects\TIVA
+#        Calculator\Debug\Obj\lcd_driver.o" "E:\_Faculty of Engineering - Ain
+#        Shams University\_Semester 7\CSE316\Projects\TIVA
+#        Calculator\Debug\Obj\main.o" "E:\_Faculty of Engineering - Ain Shams
+#        University\_Semester 7\CSE316\Projects\TIVA
+#        Calculator\Debug\Obj\ports.o" --no_out_extension -o "E:\_Faculty of
+#        Engineering - Ain Shams University\_Semester 7\CSE316\Projects\TIVA
+#        Calculator\Debug\Exe\calc.out" --redirect _Printf=_PrintfFullNoMb
+#        --redirect _Scanf=_ScanfFullNoMb --map "E:\_Faculty of Engineering -
+#        Ain Shams University\_Semester 7\CSE316\Projects\TIVA
+#        Calculator\Debug\List\calc.map" --config "C:\Program Files (x86)\IAR
+#        Systems\Embedded Workbench
+#        8.1\arm\config\linker\TexasInstruments\TM4C123GH6.icf" --semihosting
+#        --entry __iar_program_start --vfe --text_out locale)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because some modules are built with
+size limitations (and not runtime checking), and --advanced_heap
+was not specified.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x0 { ro section .intvec };
+"P1":  place in [from 0x0 to 0x3'ffff] { ro };
+define block CSTACK with size = 4K, alignment = 8 { };
+define block HEAP with size = 8K, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2000'7fff] {
+          rw, block CSTACK, block HEAP };
+
+No sections matched the following patterns:
+
+  rw  in "P2"
+
+
+  Section   Kind         Address    Size  Object
+  -------   ----         -------    ----  ------
+"A0":                               0x40
+  .intvec   ro code          0x0    0x40  vector_table_M.o [4]
+                          - 0x40    0x40
+
+"P1":                              0x384
+  .text     ro code         0x40   0x162  keypad_driver.o [1]
+  .text     ro code        0x1a2     0x2  vector_table_M.o [4]
+  .text     ro code        0x1a4    0x56  ABImemcpy_unaligned.o [4]
+  .text     ro code        0x1fc   0x11c  lcd_driver.o [1]
+  .text     ro code        0x318    0x24  main.o [1]
+  .text     ro code        0x33c    0x22  fpinit_M.o [3]
+  .text     ro code        0x360    0x1e  cmain.o [4]
+  .text     ro code        0x37e     0x4  low_level_init.o [2]
+  .text     ro code        0x382     0x4  exit.o [2]
+  .text     ro code        0x388     0xa  cexit.o [4]
+  .text     ro code        0x394    0x14  exit.o [5]
+  .rodata   const          0x3a8    0x10  keypad_driver.o [1]
+  .text     ro code        0x3b8     0xc  cstartup_M.o [4]
+                         - 0x3c4   0x384
+
+"P2":                             0x1000
+  CSTACK             0x2000'0000  0x1000  <Block>
+    CSTACK  uninit   0x2000'0000  0x1000  <Block tail>
+                   - 0x2000'1000  0x1000
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+        0x3c4     0x3'ffff  0x3'fc3c
+  0x2000'1000  0x2000'7fff    0x7000
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                 ro code  ro data  rw data
+    ------                 -------  -------  -------
+command line/config:
+    ------------------------------------------------
+    Total:
+
+E:\_Faculty of Engineering - Ain Shams University\_Semester 7\CSE316\Projects\TIVA Calculator\Debug\Obj: [1]
+    keypad_driver.o            354       16
+    lcd_driver.o               284
+    main.o                      36
+    ------------------------------------------------
+    Total:                     674       16
+
+dl7M_tln.a: [2]
+    exit.o                       4
+    low_level_init.o             4
+    ------------------------------------------------
+    Total:                       8
+
+m7M_tls.a: [3]
+    fpinit_M.o                  34
+    ------------------------------------------------
+    Total:                      34
+
+rt7M_tl.a: [4]
+    ABImemcpy_unaligned.o       86
+    cexit.o                     10
+    cmain.o                     30
+    cstartup_M.o                12
+    vector_table_M.o            66
+    ------------------------------------------------
+    Total:                     204
+
+shb_l.a: [5]
+    exit.o                      20
+    ------------------------------------------------
+    Total:                      20
+
+    Gaps                         8
+    Linker created                             4 096
+----------------------------------------------------
+    Grand Total:               948       16    4 096
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address  Size  Type      Object
+-----                       -------  ----  ----      ------
+?main                         0x361        Code  Gb  cmain.o [4]
+CSTACK$$Base            0x2000'0000         --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'1000         --   Gb  - Linker created -
+LCD_command                   0x29d  0x2e  Code  Gb  lcd_driver.o [1]
+LCD_data                      0x27f  0x1e  Code  Gb  lcd_driver.o [1]
+LCD_init                      0x1fd  0x72  Code  Gb  lcd_driver.o [1]
+LCD_reset                     0x26f  0x10  Code  Gb  lcd_driver.o [1]
+Region$$Table$$Base             0x0         --   Gb  - Linker created -
+Region$$Table$$Limit            0x0         --   Gb  - Linker created -
+__cmain                       0x361        Code  Gb  cmain.o [4]
+__exit                        0x395  0x14  Code  Gb  exit.o [5]
+__iar_init_vfp                0x33d        Code  Gb  fpinit_M.o [3]
+__iar_program_start           0x3b9        Code  Gb  cstartup_M.o [4]
+__iar_unaligned_memcpy4
+                              0x1a5        Code  Gb  ABImemcpy_unaligned.o [4]
+__iar_unaligned_memcpy8
+                              0x1a5        Code  Gb  ABImemcpy_unaligned.o [4]
+__low_level_init              0x37f   0x4  Code  Gb  low_level_init.o [2]
+__vector_table                  0x0        Data  Gb  vector_table_M.o [4]
+_call_main                    0x36d        Code  Gb  cmain.o [4]
+_exit                         0x389        Code  Gb  cexit.o [4]
+_main                         0x37b        Code  Gb  cmain.o [4]
+delayMs                       0x2e9  0x1a  Code  Gb  lcd_driver.o [1]
+delayUs                       0x303  0x16  Code  Gb  lcd_driver.o [1]
+exit                          0x383   0x4  Code  Gb  exit.o [2]
+keypad_getchar                0x15d  0x46  Code  Gb  keypad_driver.o [1]
+keypad_getkey                  0x7f  0xba  Code  Gb  keypad_driver.o [1]
+keypad_init                    0x41  0x3e  Code  Gb  keypad_driver.o [1]
+main                          0x319  0x24  Code  Gb  main.o [1]
+
+
+[1] = E:\_Faculty of Engineering - Ain Shams University\_Semester 7\CSE316\Projects\TIVA Calculator\Debug\Obj
+[2] = dl7M_tln.a
+[3] = m7M_tls.a
+[4] = rt7M_tl.a
+[5] = shb_l.a
+
+    948 bytes of readonly  code memory
+     16 bytes of readonly  data memory
+  4 096 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
