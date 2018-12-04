@@ -1,5 +1,6 @@
 # Tiva Calculator
-A Calculator that does simple arithmatic operations like addition, subtraction, multiplication, and division.
+A Calculator that does simple arithmatic operations like addition, subtraction, multiplication, and division.<br>
+Implemented as a project for Microcontrollers CSE316 Course - Faculty of Engineering, Ain Shams University
 
 ## Components
 - Texas Instruments Tiva ARM® Cortex®-M4F Based MCU TM4C123G LaunchPad™
