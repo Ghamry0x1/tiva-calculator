@@ -14,7 +14,7 @@ int main() {
     unsigned char key;
     char x[16] = "";
     int l = 0;
-
+    char result[16] = "";
     LCD_init();
     keypad_init();
 
