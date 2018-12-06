@@ -9,9 +9,8 @@
 #include "keypad_driver.h"
 
 int main() {
-    keypad_init();
     LCD_init();
-    keypad_isr_init();
+    keypad_init();
 
     while(1) {}
 }

@@ -2,14 +2,47 @@
 #include "lcd_driver.h"
 
 void keypad_init(void) {
-    SYSCTL_RCGCGPIO_R |= 0x14; //GPIO C | GPIO E
-
-    GPIO_PORTC_DEN_R |= 0xF0;
-    GPIO_PORTC_DIR_R &= ~0xF0; //pins 4->7 as input
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOE) && !SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOC)) {}
+    GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
+    GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7);
     GPIO_PORTC_PUR_R |= 0xF0;
 
-    GPIO_PORTE_DEN_R |= 0x0F;
-    GPIO_PORTE_DIR_R |= 0x0F; //pins 0->3 as output
+    GPIOIntTypeSet(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, GPIO_FALLING_EDGE);
+    GPIOIntRegister(GPIO_PORTE_BASE, keypad_isr_handler);
+    GPIOIntEnable(GPIO_PORTE_BASE, GPIO_INT_PIN_0 | GPIO_INT_PIN_1 | GPIO_INT_PIN_2 | GPIO_INT_PIN_3);
+}
+
+void keypad_isr_handler(void) {
+    uint32_t status = 0;
+    status = GPIOIntStatus(GPIO_PORTE_BASE, true);
+    GPIOIntClear(GPIO_PORTE_BASE, status);
+
+    if((status & GPIO_INT_PIN_0) == GPIO_INT_PIN_0) {
+          //Then there was a pin0 interrupt
+    }
+
+    if((status & GPIO_INT_PIN_1) == GPIO_INT_PIN_1) {
+          //Then there was a pin1 interrupt
+    }
+
+    if((status & GPIO_INT_PIN_2) == GPIO_INT_PIN_2) {
+          //Then there was a pin2 interrupt
+    }
+
+    if((status & GPIO_INT_PIN_3) == GPIO_INT_PIN_3) {
+          //Then there was a pin3 interrupt
+    }
+
+    SysCtlDelay(7000000);
+
+
+    /*unsigned char key;
+        key = keypad_getchar();
+        if(key != 0)
+            LCD_data(key);*/
+
 }
 
 unsigned char keypad_getkey(void) {
