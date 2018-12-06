@@ -14,16 +14,3 @@ int main() {
 
     while(1) {}
 }
-
-/*
-// Ports Initialization
-SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-
-while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF))
-{
-}
-
-GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);
-
-GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_PIN_1);
-*/
