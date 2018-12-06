@@ -89,3 +89,40 @@ unsigned char keypad_getchar(void) {
 
     return key;
 }
+
+/*unsigned char keypad_getchar(void) {
+    unsigned char key;
+    
+    do{
+        key = keypad_getkey();
+        delayMs(20);
+    }while(keypad_getkey() != key); 
+   
+    if(key == 'C') {
+        LCD_reset();
+        return 0;
+    }
+
+    return key;
+}*/
+
+
+/*If we used this version of the function 
+we'll have to delay 20ms after calling LCD_data(key)
+either in the main or in the interrupt*/
+/*unsigned char keypad_getchar(void) { 
+    unsigned char key;
+    
+    key = keypad_getkey();
+   
+    if(key == 'C') {
+        LCD_reset();
+        return 0;
+    }
+
+    return key;
+}*/
+
+
+
+
