@@ -141,7 +141,7 @@ unsigned char keypad_getchar(void) {
         delayMs(20);
     }while(keypad_getkey() != key); 
    
-    if(key == '*') {
+    if(key == 'C') {
         LCD_reset();
         return 0;
     }

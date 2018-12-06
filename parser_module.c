@@ -38,9 +38,63 @@ int strToInt(char a[]) {
 
 	return n;
 }
+
+void reverse(char s[]) {
+     int i, j;
+     char c;
+
+     for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+         c = s[i];
+         s[i] = s[j];
+         s[j] = c;
+     }
+}
+
+// Implementation of itoa()
+char* itoa(int num, char* str, int base) {
+    int i = 0;
+    bool isNegative = false;
+
+    /* Handle 0 explicitely, otherwise empty string is printed for 0 */
+    if (num == 0)
+    {
+        str[i++] = '0';
+        str[i] = '\0';
+        return str;
+    }
+
+    // In standard itoa(), negative numbers are handled only with
+    // base 10. Otherwise numbers are considered unsigned.
+    if (num < 0 && base == 10)
+    {
+        isNegative = true;
+        num = -num;
+    }
+
+    // Process individual digits
+    while (num != 0)
+    {
+        int rem = num % base;
+        str[i++] = (rem > 9)? (rem-10) + 'a' : rem + '0';
+        num = num/base;
+    }
+
+    // If number is negative, append '-'
+    if (isNegative)
+        str[i++] = '-';
+
+    str[i] = '\0'; // Append string terminator
+
+    // Reverse the string
+    reverse(str);
+
+    return str;
+}
+
 void parser(char x[]) {
-	for (int i = 0; x[i] != '\0'; i++) {
-		if (!isdigit(x[i]) && i == 0) // the first number is negative (or postive (ex:+90)----- also handled )
+    int i;
+	for (i = 0; x[i] != '\0'; i++) {
+		if (!isdigit(x[i]) && i == 0) // the first number is negative (or positive (ex:+90)----- also handled )
 			append(n1, x[i]);
 		else if (isdigit(x[i]) && op == 'a') // still adding to the first string (number) because there is no op yet (op == 'a')
 			append(n1, x[i]);
@@ -68,11 +122,11 @@ void parser(char x[]) {
 
 	}
 	char num[16];
-	_itoa(n, num, 10);
+	itoa(n, num, 10);
 	
     LCD_command(0xC0);
 
-    for(int i;num[i]!='\0';i++)
+    for(i = 0;num[i]!='\0';i++)
         LCD_data(num[i]);
 
 }
