@@ -19,14 +19,13 @@ int main() {
     while(1) {
         key = keypad_getchar();
 
-        if(key == '=') {
-            parser(x);
-        }
-
-        if(key != 0) {
+        if (key != 0 && key != '='){
             append(x, key);
             LCD_data(key);
         }
+		else if(key != 0 && key == '=') 
+			parser(x);
+		
         delayMs(180);
     }
 }
