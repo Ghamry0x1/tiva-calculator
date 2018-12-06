@@ -3,11 +3,15 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include "inc/hw_memmap.h"
 #include "driverlib/debug.h"
 #include "driverlib/gpio.h"
 #include "driverlib/sysctl.h"
+#include "driverlib/interrupt.h"
 #include "tm4c123gh6pm.h"
+
+#include "parser_module.h"
 
 void keypad_init(void);
 void keypad_isr_handler(void);

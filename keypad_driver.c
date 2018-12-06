@@ -9,55 +9,65 @@ void keypad_init(void) {
     GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7);
     GPIO_PORTC_PUR_R |= 0xF0;
 
-    GPIOIntTypeSet(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, GPIO_FALLING_EDGE);
-    GPIOIntRegister(GPIO_PORTE_BASE, keypad_isr_handler);
-    GPIOIntEnable(GPIO_PORTE_BASE, GPIO_INT_PIN_0 | GPIO_INT_PIN_1 | GPIO_INT_PIN_2 | GPIO_INT_PIN_3);
+    /*GPIOIntTypeSet(GPIO_PORTC_BASE, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, GPIO_RISING_EDGE);
+    GPIOIntRegister(GPIO_PORTC_BASE, keypad_isr_handler);
+    GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
+    IntMasterEnable();*/
 }
 
 void keypad_isr_handler(void) {
     uint32_t status = 0;
-    status = GPIOIntStatus(GPIO_PORTE_BASE, true);
-    GPIOIntClear(GPIO_PORTE_BASE, status);
+    status = GPIOIntStatus(GPIO_PORTC_BASE, true);
+    GPIOIntClear(GPIO_PORTC_BASE, status);
 
-    if((status & GPIO_INT_PIN_0) == GPIO_INT_PIN_0) {
-          //Then there was a pin0 interrupt
+    if((status & GPIO_INT_PIN_4) == GPIO_INT_PIN_4) {
+        //Then there was a pin4 interrupt
+        GPIO_PORTE_DATA_R = 0x0E; //row 0
+        if(GPIO_PORTC_DATA_R == ~(GPIO_INT_PIN_4)) {
+            printf("pin 0 row 4");
+        }
     }
 
-    if((status & GPIO_INT_PIN_1) == GPIO_INT_PIN_1) {
-          //Then there was a pin1 interrupt
+    if((status & GPIO_INT_PIN_5) == GPIO_INT_PIN_5) {
+        //Then there was a pin5 interrupt
+        GPIO_PORTE_DATA_R = 0x0E; //row 0
+        if(GPIO_PORTC_DATA_R == ~(GPIO_INT_PIN_5)) {
+            printf("pin 0 row 4");
+        }
     }
 
-    if((status & GPIO_INT_PIN_2) == GPIO_INT_PIN_2) {
-          //Then there was a pin2 interrupt
+    if((status & GPIO_INT_PIN_6) == GPIO_INT_PIN_6) {
+        //Then there was a pin6 interrupt
+        GPIO_PORTE_DATA_R = 0x0E; //row 0
+        if(GPIO_PORTC_DATA_R == ~(GPIO_INT_PIN_6)) {
+            printf("pin 0 row 0");
+        }
     }
 
-    if((status & GPIO_INT_PIN_3) == GPIO_INT_PIN_3) {
-          //Then there was a pin3 interrupt
+    if((status & GPIO_INT_PIN_7) == GPIO_INT_PIN_7) {
+        //Then there was a pin7 interrupt
+        GPIO_PORTE_DATA_R = 0x0E; //row 0
+        if(GPIO_PORTC_DATA_R == ~(GPIO_INT_PIN_7)) {
+            printf("pin 7 row 0");
+        }
     }
 
     SysCtlDelay(7000000);
-
-
-    /*unsigned char key;
-        key = keypad_getchar();
-        if(key != 0)
-            LCD_data(key);*/
-
 }
 
 unsigned char keypad_getkey(void) {
     const unsigned char keymap[4][4] = {
         {'1','2','3','+'},
         {'4','5','6','-'},
-        {'7','8','9','C'},
-        {'*','0','#','='},
+        {'7','8','9','*'},
+        {'C','0','=','/'},
     };
     
     int row,col;
     GPIO_PORTE_DATA_R = 0;
     col = GPIO_PORTC_DATA_R & 0xF0;
     if(col == 0xF0)
-    return 0;
+        return 0;
     
     while(1) {
         row = 0;
@@ -103,7 +113,7 @@ unsigned char keypad_getkey(void) {
     return 0;
 }
 
-unsigned char keypad_getchar(void) {
+/*unsigned char keypad_getchar(void) {
     unsigned char key;
     do{
         while(keypad_getkey() != 0);
@@ -121,9 +131,9 @@ unsigned char keypad_getchar(void) {
     }
 
     return key;
-}
+}*/
 
-/*unsigned char keypad_getchar(void) {
+unsigned char keypad_getchar(void) {
     unsigned char key;
     
     do{
@@ -131,19 +141,19 @@ unsigned char keypad_getchar(void) {
         delayMs(20);
     }while(keypad_getkey() != key); 
    
-    if(key == 'C') {
+    if(key == '*') {
         LCD_reset();
         return 0;
     }
 
     return key;
-}*/
+}
 
 
 /*If we used this version of the function 
 we'll have to delay 20ms after calling LCD_data(key)
 either in the main or in the interrupt*/
-/*unsigned char keypad_getchar(void) { 
+/*unsigned char keypad_getchar(void) {
     unsigned char key;
     
     key = keypad_getkey();
