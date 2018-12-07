@@ -113,26 +113,6 @@ unsigned char keypad_getkey(void) {
     return 0;
 }
 
-/*unsigned char keypad_getchar(void) {
-    unsigned char key;
-    do{
-        while(keypad_getkey() != 0);
-            delayMs(20);
-    }while(keypad_getkey() != 0);
-    
-    do{
-        key = keypad_getkey();
-        delayMs(20);
-    }while(keypad_getkey() != key); 
-   
-    if(key == 'C') {
-        LCD_reset();
-        return 0;
-    }
-
-    return key;
-}*/
-
 unsigned char keypad_getchar(void) {
     unsigned char key;
     
@@ -143,29 +123,12 @@ unsigned char keypad_getchar(void) {
    
     if(key == 'C') {
         LCD_reset();
+        Globals_reset();
         return 0;
     }
 
     return key;
 }
-
-
-/*If we used this version of the function 
-we'll have to delay 20ms after calling LCD_data(key)
-either in the main or in the interrupt*/
-/*unsigned char keypad_getchar(void) {
-    unsigned char key;
-    
-    key = keypad_getkey();
-   
-    if(key == 'C') {
-        LCD_reset();
-        return 0;
-    }
-
-    return key;
-}*/
-
 
 
 

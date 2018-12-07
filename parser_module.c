@@ -1,7 +1,6 @@
 #include "parser_module.h"
 
 char n1[16] = "", n2[16] = "", op = 'a';
-int i = 0;
 bool Opchanged = false;
 
 void append(char* s, char c)
@@ -126,7 +125,15 @@ void parser(char x[]) {
 	
     LCD_command(0xC0);
 
-    for(i = 0;num[i]!='\0';i++)
+    for(i = 0; num[i]!='\0'; i++)
         LCD_data(num[i]);
 
+    Globals_reset();
+}
+
+void Globals_reset(void) {
+    memset(n1, 0, 255);
+    memset(n2, 0, 255);
+    op = 'a';
+    Opchanged = false;
 }

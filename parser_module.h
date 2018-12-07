@@ -15,5 +15,6 @@ int strToInt(char a[]);
 void parser(char c[]);
 void reverse(char s[]);
 char* itoa(int num, char* str, int base);
+void Globals_reset(void);
 
 #endif /* PARSER_MODULE_H_ */

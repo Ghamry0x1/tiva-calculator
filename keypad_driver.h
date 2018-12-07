@@ -17,5 +17,6 @@ void keypad_init(void);
 void keypad_isr_handler(void);
 unsigned char keypad_getkey(void);
 unsigned char keypad_getchar(void);
+void Globals_reset(void);
 
 #endif // __KEYPAD_DRIVER_H__
