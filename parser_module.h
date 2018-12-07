@@ -10,6 +10,8 @@
 
 #include "lcd_driver.h"
 
+extern char x[16];
+
 void append(char* s, char c);
 int strToInt(char a[]);
 void parser(char c[]);

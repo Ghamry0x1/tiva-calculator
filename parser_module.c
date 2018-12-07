@@ -3,8 +3,7 @@
 char n1[16] = "", n2[16] = "", op = 'a';
 bool Opchanged = false;
 
-void append(char* s, char c)
-{
+void append(char* s, char c) {
 	int len = strlen(s);
 	s[len] = c;
 	s[len + 1] = '\0';

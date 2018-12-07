@@ -10,8 +10,9 @@
 #include "driverlib/sysctl.h"
 #include "driverlib/interrupt.h"
 #include "tm4c123gh6pm.h"
-
 #include "parser_module.h"
+
+extern char x[16];
 
 void keypad_init(void);
 void keypad_isr_handler(void);
