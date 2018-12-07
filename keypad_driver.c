@@ -40,6 +40,7 @@ void keypad_isr_handler(void) {
     }
     else if(key == 'C') {
         LCD_reset();
+		memset(x, 0, 255);
         SysCtlDelay(150);
     }
 
