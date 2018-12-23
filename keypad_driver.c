@@ -3,8 +3,8 @@
 #include "parser_module.h"
 
 //char x[16] = "";
-extern unsigned char key;
-extern uint32_t pressedFlag;
+extern volatile unsigned char key;
+extern volatile uint32_t pressedFlag;
 
 void keypad_init(void) {
     SysCtlClockSet(SYSCTL_SYSDIV_2_5| SYSCTL_USE_PLL | SYSCTL_OSC_INT | SYSCTL_XTAL_16MHZ);

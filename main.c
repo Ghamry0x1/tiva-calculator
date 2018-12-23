@@ -10,8 +10,8 @@
 #include "parser_module.h"
 
 char x[16] = "";
-unsigned char key;
-uint32_t pressedFlag;
+volatile unsigned char key;
+volatile uint32_t pressedFlag;
 
 int main() {
     LCD_init();
