@@ -2,7 +2,9 @@
 #include "lcd_driver.h"
 #include "parser_module.h"
 
-char x[16] = "";
+//char x[16] = "";
+extern unsigned char key;
+extern uint32_t pressedFlag;
 
 void keypad_init(void) {
     SysCtlClockSet(SYSCTL_SYSDIV_2_5| SYSCTL_USE_PLL | SYSCTL_OSC_INT | SYSCTL_XTAL_16MHZ);
@@ -25,26 +27,26 @@ void keypad_isr_handler(void) {
     status = GPIOIntStatus(GPIO_PORTC_BASE, true);
     GPIOIntClear(GPIO_PORTC_BASE, status);
 
-    unsigned char key;
+    pressedFlag = 1;
     key = keypad_getkey();
 
-    if (key != 0 && key != '=' && key != 'C') {
-        append(x, key);
-        LCD_data(key);
-        SysCtlDelay(150);
-    }
-    else if(key != 0 && key == '=') {
-        parser(x);
-        memset(x, 0, 255);
-        SysCtlDelay(150);
-    }
-    else if(key == 'C') {
-        LCD_reset();
-		memset(x, 0, 255);
-        SysCtlDelay(150);
-    }
-
-    SysCtlDelay(7000000);
+//    if (key != 0 && key != '=' && key != 'C') {
+//        append(x, key);
+//        LCD_data(key);
+//        SysCtlDelay(150);
+//    }
+//    else if(key != 0 && key == '=') {
+//        parser(x);
+//        memset(x, 0, 255);
+//        SysCtlDelay(150);
+//    }
+//    else if(key == 'C') {
+//        LCD_reset();
+//		memset(x, 0, 255);
+//        SysCtlDelay(150);
+//    }
+//
+//    SysCtlDelay(7000000);
 }
 
 unsigned char keypad_getkey(void) {
