@@ -3,6 +3,14 @@
 #include "parser_module.h"
 
 char x[16] = "";
+uint32_t status;
+const unsigned char keymap[4][4] = {
+        {'1','2','3','+'},
+        {'4','5','6','-'},
+        {'7','8','9','*'},
+        {'C','0','=','/'},
+    };
+int col;
 
 void keypad_init(void) {
     SysCtlClockSet(SYSCTL_SYSDIV_2_5| SYSCTL_USE_PLL | SYSCTL_OSC_INT | SYSCTL_XTAL_16MHZ);
@@ -21,41 +29,17 @@ void keypad_init(void) {
 }
 
 void keypad_isr_handler(void) {
-    uint32_t status = 0;
+    status = 0;
     status = GPIOIntStatus(GPIO_PORTC_BASE, true);
     GPIOIntClear(GPIO_PORTC_BASE, status);
 
-    unsigned char key;
-    key = keypad_getkey();
+    keyPressed = 1;
 
-    if (key != 0 && key != '=' && key != 'C') {
-        append(x, key);
-        LCD_data(key);
-        SysCtlDelay(150);
-    }
-    else if(key != 0 && key == '=') {
-        parser(x);
-        memset(x, 0, 255);
-        SysCtlDelay(150);
-    }
-    else if(key == 'C') {
-        LCD_reset();
-        memset(x, 0, 255);
-        SysCtlDelay(150);
-    }
-
-    SysCtlDelay(7000000);
+    //SysCtlDelay(7000000);
+    SysCtlDelay(1000);
 }
 
 unsigned char keypad_getkey(void) {
-    const unsigned char keymap[4][4] = {
-        {'1','2','3','+'},
-        {'4','5','6','-'},
-        {'7','8','9','*'},
-        {'C','0','=','/'},
-    };
-
-    int row, col;
     GPIO_PORTE_DATA_R = 0;
     col = GPIO_PORTC_DATA_R & 0xF0;
     if(col == 0xF0)

@@ -14,6 +14,7 @@
 
 extern char x[16];
 extern int row;
+extern int keyPressed;
 
 void keypad_init(void);
 void keypad_isr_handler(void);

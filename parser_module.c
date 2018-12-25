@@ -122,8 +122,8 @@ void parser(char x[]) {
 	char num[16];
 	itoa(n, num, 10);
 	
-    LCD_command(0xC0);
-	//LCD_reset();
+    //LCD_command(0xC0);
+	LCD_reset();
 
     for(i = 0; num[i]!='\0'; i++)
         LCD_data(num[i]);
