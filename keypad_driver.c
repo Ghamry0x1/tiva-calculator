@@ -35,8 +35,7 @@ void keypad_isr_handler(void) {
 
     keyPressed = 1;
 
-    //SysCtlDelay(7000000);
-    SysCtlDelay(1000);
+    SysCtlDelay(7000000);
 }
 
 unsigned char keypad_getkey(void) {

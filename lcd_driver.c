@@ -22,8 +22,8 @@ void LCD_init(void)
   LCD_command(0x06);
   LCD_command(0x01); //clear
   LCD_command(0x0F); //display on
-  
 }
+
 void LCD_reset(void)
 {
    LCD_command(0x80);
@@ -49,6 +49,38 @@ void LCD_command(unsigned char command)
     delayMs(2);
   else
     delayUs(40);
+}
+
+void LCD_home(void)
+{
+    LCD_data('1');
+    LCD_data('-');
+    LCD_data('R');
+    LCD_data('T');
+    LCD_data('C');
+
+    LCD_data(' ');
+    LCD_data(' ');
+
+    LCD_data('2');
+    LCD_data('-');
+    LCD_data('C');
+    LCD_data('A');
+    LCD_data('L');
+    LCD_data('C');
+
+    LCD_command(0xC0);
+
+    LCD_data('3');
+    LCD_data('-');
+    LCD_data('H');
+    LCD_data('I');
+    LCD_data('S');
+    LCD_data('T');
+    LCD_data('O');
+    LCD_data('R');
+    LCD_data('Y');
+
 }
 
 void delayMs(int n) // 16 MHz CPU Clock
