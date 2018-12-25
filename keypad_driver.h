@@ -13,6 +13,7 @@
 #include "parser_module.h"
 
 extern char x[16];
+extern int row;
 
 void keypad_init(void);
 void keypad_isr_handler(void);

@@ -40,6 +40,7 @@ void keypad_isr_handler(void) {
     }
     else if(key == 'C') {
         LCD_reset();
+        memset(x, 0, 255);
         SysCtlDelay(150);
     }
 
@@ -66,7 +67,7 @@ unsigned char keypad_getkey(void) {
         delayUs(2);
         col = GPIO_PORTC_DATA_R & 0xF0;
         if(col != 0xF0)
-          break;
+            break;
 
         row = 1;
         GPIO_PORTE_DATA_R = 0x0D; //row 1

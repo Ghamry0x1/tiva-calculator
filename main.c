@@ -9,6 +9,8 @@
 #include "keypad_driver.h"
 #include "parser_module.h"
 
+int row;
+
 int main() {
     LCD_init();
     keypad_init();
