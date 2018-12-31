@@ -105,6 +105,40 @@ void LCD_home(void)
     delayMs(4);
 }
 
+void LCD_EEPROM_HOME(void)
+{
+    LCD_data('1');
+    delayMs(4);
+    LCD_data('-');
+    delayMs(4);
+    LCD_data('R');
+    delayMs(4);
+    LCD_data('E');
+    delayMs(4);
+    LCD_data('A');
+    delayMs(4);
+    LCD_data('D');
+    delayMs(4);
+
+    LCD_command(0xC0);
+    delayMs(4);
+
+    LCD_data('2');
+    delayMs(4);
+    LCD_data('-');
+    delayMs(4);
+    LCD_data('W');
+    delayMs(4);
+    LCD_data('R');
+    delayMs(4);
+    LCD_data('I');
+    delayMs(4);
+    LCD_data('T');
+    delayMs(4);
+    LCD_data('E');
+    delayMs(4);
+}
+
 void delayMs(int n) // 16 MHz CPU Clock
 {
     int i, j;

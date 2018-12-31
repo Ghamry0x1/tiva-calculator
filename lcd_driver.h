@@ -8,6 +8,7 @@ void LCD_data(unsigned char data);
 void LCD_reset(void);
 void LCD_command(unsigned char command);
 void LCD_home(void);
+void LCD_EEPROM_HOME(void);
 void delayMs(int n);
 void delayUs(int n);
 
