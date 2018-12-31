@@ -54,33 +54,55 @@ void LCD_command(unsigned char command)
 void LCD_home(void)
 {
     LCD_data('1');
+    delayMs(4);
     LCD_data('-');
+    delayMs(4);
     LCD_data('R');
+    delayMs(4);
     LCD_data('T');
+    delayMs(4);
     LCD_data('C');
+    delayMs(4);
 
     LCD_data(' ');
+    delayMs(4);
     LCD_data(' ');
+    delayMs(4);
 
     LCD_data('2');
+    delayMs(4);
     LCD_data('-');
+    delayMs(4);
     LCD_data('C');
+    delayMs(4);
     LCD_data('A');
+    delayMs(4);
     LCD_data('L');
+    delayMs(4);
     LCD_data('C');
+    delayMs(4);
 
     LCD_command(0xC0);
+    delayMs(4);
 
     LCD_data('3');
+    delayMs(4);
     LCD_data('-');
+    delayMs(4);
     LCD_data('H');
+    delayMs(4);
     LCD_data('I');
+    delayMs(4);
     LCD_data('S');
+    delayMs(4);
     LCD_data('T');
+    delayMs(4);
     LCD_data('O');
+    delayMs(4);
     LCD_data('R');
+    delayMs(4);
     LCD_data('Y');
-
+    delayMs(4);
 }
 
 void delayMs(int n) // 16 MHz CPU Clock
