@@ -20,6 +20,7 @@ int main() {
 
     while(1) {
         if(keyPressed == 1) {
+            GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
             state = keypad_getkey();
             SysCtlDelay(300);
             keyPressed = 0;
@@ -27,12 +28,18 @@ int main() {
             if(state == 1) {
                 // rtc
                 LCD_reset();
+                GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
+                if(keyPressed == 1) {
+                    GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
+                }
                 //rtc_init();
             }
             else if(state == 2) {
                 // calc
                 LCD_reset();
+                GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
                 if(keyPressed == 1) {
+                    GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
                     key = keypad_getkey();
                     SysCtlDelay(300);
                     keyPressed = 0;
@@ -57,7 +64,11 @@ int main() {
             else if(state == 3) {
                 // calc history
                 LCD_reset();
+                GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
                 // calc_hist();
+                if(keyPressed == 1) {
+                    GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
+                }
             }
         }
     }
