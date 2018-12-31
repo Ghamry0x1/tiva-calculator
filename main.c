@@ -44,7 +44,6 @@ int main() {
             }
             else if(state == '2') {
                 // CALC
-                SysCtlDelay(4000);
                 LCD_reset();
                 SysCtlDelay(3000);
                 while(1){
@@ -80,12 +79,19 @@ int main() {
                 // EEPROM
                 LCD_reset();
                 SysCtlDelay(3000);
+
                 LCD_EEPROM_HOME();
                 SysCtlDelay(3000);
+
                 SysCtlPeripheralEnable(SYSCTL_PERIPH_EEPROM0);
+                while(!SysCtlPeripheralReady(SYSCTL_PERIPH_EEPROM0))
+                {
+                }
                 SysCtlDelay(3000);
+
                 uint32_t eeprom_status = EEPROMInit();
                 SysCtlDelay(3000);
+
                 state = 0;
 
                 if(eeprom_status == 0) {
@@ -94,13 +100,19 @@ int main() {
                         if(keyPressed == 1) {
                             state = keypad_getkey();
 
+                            uint32_t ui32EEPROMInit;
+                            uint32_t pui32Data[2];
+                            uint32_t pui32Read[2];
+
                             GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
                             SysCtlDelay(3000);
                             keyPressed = 0;
                             if(state == 1){
                                 //Read
+                                EEPROMRead(pui32Data, ui32Address, ui32Count)();
                             }else if(state == 2){
                                 //write
+                                EEPROMProgram(pui32Data, ui32Address, ui32Count)();
                             }
                         }
                     }
