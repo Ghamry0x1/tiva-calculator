@@ -83,37 +83,43 @@ int main() {
                 LCD_EEPROM_HOME();
                 SysCtlDelay(3000);
 
+                uint32_t ui32EEPROMInit;
+                uint32_t pui32Data[2];
+                uint32_t pui32Read[2];
+                uint32_t ui32Address = 0x400; //eeprom base
+
                 SysCtlPeripheralEnable(SYSCTL_PERIPH_EEPROM0);
                 while(!SysCtlPeripheralReady(SYSCTL_PERIPH_EEPROM0))
                 {
                 }
                 SysCtlDelay(3000);
 
-                uint32_t eeprom_status = EEPROMInit();
+                ui32EEPROMInit = EEPROMInit();
                 SysCtlDelay(3000);
 
                 state = 0;
 
-                if(eeprom_status == 0) {
-                    while(1){
-                        GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
-                        if(keyPressed == 1) {
-                            state = keypad_getkey();
+                if(ui32EEPROMInit != EEPROM_INIT_OK)
+                {
+                    while(1){}
+                }
+                while(1){
+                    GPIOIntEnable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
+                    if(keyPressed == 1) {
+                        state = keypad_getkey();
 
-                            uint32_t ui32EEPROMInit;
-                            uint32_t pui32Data[2];
-                            uint32_t pui32Read[2];
+                        GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
+                        SysCtlDelay(3000);
+                        keyPressed = 0;
 
-                            GPIOIntDisable(GPIO_PORTC_BASE, GPIO_INT_PIN_4 | GPIO_INT_PIN_5 | GPIO_INT_PIN_6 | GPIO_INT_PIN_7);
-                            SysCtlDelay(3000);
-                            keyPressed = 0;
-                            if(state == 1){
-                                //Read
-                                EEPROMRead(pui32Data, ui32Address, ui32Count)();
-                            }else if(state == 2){
-                                //write
-                                EEPROMProgram(pui32Data, ui32Address, ui32Count)();
-                            }
+                        if(state == '1'){
+                            //Read
+                            EEPROMRead(pui32Read, ui32Address, sizeof(pui32Read));
+                        }else if(state == '2'){
+                            //write
+                            pui32Data[0] = 0x12345678;
+                            pui32Data[1] = 0x56789abc;
+                            EEPROMProgram(pui32Data, ui32Address, sizeof(pui32Data));
                         }
                     }
                 }
